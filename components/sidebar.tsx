@@ -35,7 +35,7 @@ const Sidebar = ({ profile }: SidebarProps) => {
             <button
               onClick={() => router.push("/create-post")}
               type="submit"
-              className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF] w-full text-center"
+              className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF] w-full text-center"
             >
               Create Post
             </button>
