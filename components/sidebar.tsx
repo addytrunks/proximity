@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, LogOut, User2 } from "lucide-react";
+import { Home, LogOut, Plus, User2 } from "lucide-react";
 import SidebarItem from "./sidebar-item";
 import SidebarLogo from "./sidebar-logo";
 import { Profile } from "@prisma/client";
@@ -37,7 +37,10 @@ const Sidebar = ({ profile }: SidebarProps) => {
               type="submit"
               className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF] w-full text-center"
             >
-              Create Post
+              <div className="flex items-center gap-x-5">
+                <Plus className="h-4 w-4"/>
+                <p className="hidden lg:block text-white">Create Post</p>
+              </div>
             </button>
           </div>
         </div>
