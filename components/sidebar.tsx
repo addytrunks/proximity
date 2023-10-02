@@ -3,12 +3,12 @@
 import { Home, LogOut, User2 } from "lucide-react";
 import SidebarItem from "./sidebar-item";
 import SidebarLogo from "./sidebar-logo";
-import { User } from "@prisma/client";
+import { Profile } from "@prisma/client";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 interface SidebarProps {
-  profile: User | null;
+  profile: Profile | null;
 }
 
 const Sidebar = ({ profile }: SidebarProps) => {
