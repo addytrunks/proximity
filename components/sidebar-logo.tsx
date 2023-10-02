@@ -1,6 +1,6 @@
 "use client"
 
-import { Radar, Twitter } from "lucide-react";
+import { Radar } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const SidebarLogo = () => {
