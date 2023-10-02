@@ -16,7 +16,7 @@ const UserAvatar = ({ src }: UserAvatarProps) => {
     return (
       <div className="relative flex h-20 w-20 shrink-0 overflow-hidden rounded-full">
         <Image
-          src='/avatar.png'
+          src={user?.imageUrl!}
           className="aspect-square h-full w-full"
           fill
           alt="avatar"
