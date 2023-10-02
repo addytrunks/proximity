@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Import Montserrat from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Roboto&display=swap");
+
+:root,
+html,
+body {
+  height: 100%;
+  background-color: #0d1117;
+  color: white;
+  font-family: "Dancing Script", cursive;
+  font-family: "Roboto", sans-serif;
+}
