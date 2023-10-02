@@ -21,3 +21,19 @@ export const createUserFormSchema = z.object({
     message: "Provide an image.",
   }),
 });
+
+export const createPostFormSchema = z.object({
+  caption: z
+    .string()
+    .max(200, {
+      message: "Caption must be at most 200 characters long",
+    })
+    .min(10, {
+      message: "Caption must be at least 10 characters long",
+    }),
+  imageUrl: z.string().url({
+    message:'Provide an image.'
+  }),
+  c_lat: z.string().nonempty(),
+  c_long: z.string().nonempty(),
+});
