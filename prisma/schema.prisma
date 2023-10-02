@@ -7,15 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Profile {
+model User {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   userId   String @unique
   name     String
   imageUrl String @db.String
   email    String @db.String
   bio      String @db.String
-  c_lat    Float
-  c_long   Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
