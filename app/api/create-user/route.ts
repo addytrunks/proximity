@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { auth, currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
@@ -15,7 +15,7 @@ export const POST = async (req: Request) => {
     if (!imageUrl)
       return new NextResponse("Image is required", { status: 400 });
 
-    const user = await db.user.create({
+    const user = await db.profile.create({
       data: {
         userId:currUser.id,
         name: username,
