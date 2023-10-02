@@ -17,4 +17,18 @@ model Profile {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Post      Post[]
+}
+
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  profileId String   @db.ObjectId
+  Profile   Profile  @relation(fields: [profileId], references: [id])
+  caption   String
+  imageUrl    String
+  c_lat     String
+  c_long    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
