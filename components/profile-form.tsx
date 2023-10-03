@@ -152,7 +152,7 @@ const ProfileForm = ({profile}:ProfileFormProps) => {
                 disabled={isLoading || isSubmitting}
                 className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF]"
               >
-                Create profile
+                Edit profile
               </button>
             </form>
           </CardContent>
