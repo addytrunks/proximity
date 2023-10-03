@@ -21,7 +21,7 @@ const EditProfilePage = async ({ params }: EditProfilePageProps) => {
 
   return (
     <div>
-      <ProfileForm profile={profile}/>
+      <ProfileForm type="edit" profile={profile}/>
     </div>
   );
 };
