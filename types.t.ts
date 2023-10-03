@@ -20,6 +20,7 @@ export const createUserFormSchema = z.object({
   imageUrl: z.string().url().nonempty({
     message: "Provide an image.",
   }),
+  
 });
 
 export const createPostFormSchema = z.object({

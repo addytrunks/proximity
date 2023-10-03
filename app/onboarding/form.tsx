@@ -19,6 +19,7 @@ import "@uploadthing/react/styles.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { LocateFixed } from "lucide-react";
 
 interface OnboardingFormProps {
   imageUrlProp: string;
@@ -38,14 +39,32 @@ const OnboardingForm = ({ imageUrlProp }: OnboardingFormProps) => {
       username: "",
       bio: "",
       imageUrl: imageUrlProp,
+      c_lat: "",
+      c_long: "",
     },
   });
+
+  const getCurrentLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setValue("c_lat", position.coords.latitude.toString());
+        setValue("c_long", position.coords.longitude.toString());
+        toast.success("You have been located successfully!");
+      },
+      (error: GeolocationPositionError) => {
+        if (error.code === error.PERMISSION_DENIED) {
+          toast.error("Please allow location access to create a post!");
+        }
+      }
+    );
+    console.log("Location");
+  };
 
   const onSubmit = async (values: z.infer<typeof createUserFormSchema>) => {
     try {
       await axios.post("/api/create-user/", values);
-      toast.success("User created successfully!",{
-        position:'bottom-right'
+      toast.success("User created successfully!", {
+        position: "bottom-right",
       });
       router.push("/");
     } catch (error) {
@@ -61,7 +80,21 @@ const OnboardingForm = ({ imageUrlProp }: OnboardingFormProps) => {
         </p>
         <Card className="w-[500px] border-gray-700 mt-5">
           <CardHeader>
-            <CardTitle>Get started</CardTitle>
+            <span className="font-semibold text-2xl">Get started</span>
+            <CardTitle className="flex items-center gap-x-4">
+              <span>Locate Me</span>
+              <span
+                className="hover:cursor-pointer"
+                onClick={getCurrentLocation}
+              >
+                <LocateFixed className="w-6 h-6 text-[#58A6FF]" />
+              </span>
+            </CardTitle>
+            {(errors.c_lat || errors.c_long) && (
+              <p className="text-xs text-red-500">
+                Allow access to location by clicking on the location logo above.
+              </p>
+            )}
             <CardDescription className="text-zinc-500">
               Set up your user account
             </CardDescription>
@@ -116,7 +149,7 @@ const OnboardingForm = ({ imageUrlProp }: OnboardingFormProps) => {
               )}
 
               <button
-              type="submit"
+                type="submit"
                 disabled={isLoading || isSubmitting}
                 className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF]"
               >

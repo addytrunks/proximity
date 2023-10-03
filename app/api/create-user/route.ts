@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
   try {
-    const { username, bio, imageUrl } = await req.json();
+    const { username, bio, imageUrl,c_lat,c_long } = await req.json();
 
     const currUser = await currentUser();
 
@@ -14,6 +14,7 @@ export const POST = async (req: Request) => {
     if (!bio) return new NextResponse("Bio is required", { status: 400 });
     if (!imageUrl)
       return new NextResponse("Image is required", { status: 400 });
+    if(!c_lat || !c_long) return new NextResponse("Location is required", { status: 400 });
 
     const user = await db.profile.create({
       data: {
@@ -22,6 +23,8 @@ export const POST = async (req: Request) => {
         bio,
         imageUrl,
         email: currUser.emailAddresses[0].emailAddress,
+        c_lat,
+        c_long
       },
     });
 

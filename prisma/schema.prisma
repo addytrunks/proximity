@@ -14,6 +14,8 @@ model Profile {
   imageUrl String @db.String
   email    String @db.String
   bio      String @db.String
+  c_lat     String
+  c_long    String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
