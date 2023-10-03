@@ -13,13 +13,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "../api/uploadthing/core";
 import "@uploadthing/react/styles.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { LocateFixed } from "lucide-react";
+import { UploadButton } from "@/lib/uploadthing";
 
 interface OnboardingFormProps {
   imageUrlProp: string;
@@ -107,7 +107,7 @@ const OnboardingForm = ({ imageUrlProp }: OnboardingFormProps) => {
             >
               <div className="flex items-center gap-x-10">
                 <UserAvatar src={watch().imageUrl} />
-                <UploadButton<OurFileRouter>
+                <UploadButton
                   endpoint="imageUploader"
                   appearance={{
                     button: "bg-[#58A6F8]",
