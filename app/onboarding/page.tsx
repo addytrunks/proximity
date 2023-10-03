@@ -1,7 +1,7 @@
 import { currentProfile } from "@/lib/current-profile";
-import OnboardingForm from "./form";
 import { redirect } from "next/navigation";
-import { auth, currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
+import ProfileForm from "@/components/profile-form";
 
 const OnboardingPage = async() => {
 
@@ -11,7 +11,7 @@ const OnboardingPage = async() => {
   if (user) return redirect("/");
   return (
     <>
-      <OnboardingForm imageUrlProp={currUser?.imageUrl!}/>
+      <ProfileForm type="create" imageUrl={currUser?.imageUrl}/>
     </>
   );
 };

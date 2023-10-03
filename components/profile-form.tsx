@@ -21,11 +21,20 @@ import { LocateFixed } from "lucide-react";
 import { Profile } from "@prisma/client";
 import { UploadButton } from "@/lib/uploadthing";
 
-interface ProfileFormProps{
-  profile:Profile
+interface ProfileFormProps {
+  type: "edit" | "create";
+  profile?: Profile;
+  imageUrl?: string;
 }
 
-const ProfileForm = ({profile}:ProfileFormProps) => {
+const ProfileForm = ({ profile, type, imageUrl }: ProfileFormProps) => {
+
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  },[])
+
   const router = useRouter();
   const {
     register,
@@ -36,11 +45,11 @@ const ProfileForm = ({profile}:ProfileFormProps) => {
   } = useForm({
     resolver: zodResolver(createUserFormSchema),
     defaultValues: {
-      username: profile.name,
-      bio: profile.bio,
-      imageUrl: profile.imageUrl,
-      c_lat: profile.c_lat,
-      c_long: profile.c_long,
+      username: profile?.name || "",
+      bio: profile?.bio || "",
+      imageUrl: imageUrl ? imageUrl : profile?.imageUrl || "",
+      c_lat: profile?.c_lat || "",
+      c_long: profile?.c_long || "",
     },
   });
 
@@ -62,21 +71,38 @@ const ProfileForm = ({profile}:ProfileFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof createUserFormSchema>) => {
     try {
-      await axios.patch(`/api/edit-user/${profile.id}`, values);
-      toast.success("Your profile has been updated successfully!", {
-        position: "bottom-right",
-      });
+      if (type === "create") {
+        await axios.post(`/api/create-user/`, values);
+        toast.success("Your profile has been created successfully!", {
+          position: "bottom-right",
+        });
+      } else {
+        await axios.patch(`/api/edit-user/${profile?.id}`, values);
+        toast.success("Your profile has been updated successfully!", {
+          position: "bottom-right",
+        });
+      }
       router.push("/");
     } catch (error) {
       console.log(error);
     }
   };
 
+  if(!isMounted) return null;
+
   return (
     <div className="max-w-6xl flex mx-auto items-center justify-center min-h-screen">
       <div className="flex-col gap-y-5">
         <p className="font-semibold text-4xl">
-          Edit <span className="text-[#58A6FF]">Profile</span>
+          {type === "create" ? (
+            <p className="font-semibold text-4xl">
+              Welcome to <span className="text-[#58A6FF]">Proximity</span>
+            </p>
+          ) : (
+            <p>
+              Edit <span className="text-[#58A6FF]">Profile</span>
+            </p>
+          )}
         </p>
         <Card className="w-[500px] border-gray-700 mt-5">
           <CardHeader>
@@ -94,9 +120,11 @@ const ProfileForm = ({profile}:ProfileFormProps) => {
                 Allow access to location by clicking on the location logo above.
               </p>
             )}
-            <CardDescription className="text-zinc-500">
-              Set up your user account
-            </CardDescription>
+            {type === "create" && (
+              <CardDescription className="text-zinc-500">
+                Set up your user account
+              </CardDescription>
+            )}
           </CardHeader>
 
           <CardContent>
@@ -152,7 +180,7 @@ const ProfileForm = ({profile}:ProfileFormProps) => {
                 disabled={isLoading || isSubmitting}
                 className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF]"
               >
-                Edit profile
+                {type === "create" ? "Create" : "Edit"} profile
               </button>
             </form>
           </CardContent>
