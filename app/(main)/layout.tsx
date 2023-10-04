@@ -10,18 +10,17 @@ export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode;
-}){
-
+}) {
   const profile = await currentProfile();
 
   return (
-      <div className="container h-full mx-auto xl:px-30 max-w-7xl">
-        <div className="grid grid-cols-4 h-full">
-            <Sidebar profile={profile}/>
-            <div className="col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800">
-                {children}
-            </div>
-        </div>
+    <div className="h-full flex">
+      <div className="lg:w-[430px] md:w-[230px] sm:w-[130px]">
+        <Sidebar profile={profile} />
       </div>
+      <div className="flex-1 overflow-y-auto border-l border-neutral-800">
+        {children}
+      </div>
+    </div>
   );
 }
