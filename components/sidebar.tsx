@@ -14,7 +14,7 @@ const Sidebar = ({ profile }: SidebarProps) => {
   const router = useRouter();
 
   return (
-    <div className="container col-span-1 h-full pr-4 md:pr-6">
+    <div className="container h-full pr-4 md:pr-6">
       <div className="flex flex-col items-end">
         <div className="space-y-2 lg:w-[230px]">
           <div
@@ -46,7 +46,7 @@ const Sidebar = ({ profile }: SidebarProps) => {
             <button
               onClick={() => router.push("/post/create")}
               type="submit"
-              className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF] w-full text-center"
+              className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF] w-fit text-center"
             >
               <div className="flex items-center gap-x-5">
                 <Plus className="h-4 w-4 font-semibold" />
