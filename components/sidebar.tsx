@@ -26,12 +26,12 @@ const Sidebar = ({ profile }: SidebarProps) => {
 
           <div className="flex items-center p-4 gap-x-4 cursor-pointer" onClick={() => router.push('/')}>
             <Home className="w-8 h-w-8" />
-            <p className="text-lg hidden md:flex">Home</p>
+            <p className="text-lg md:flex">Home</p>
           </div>
 
           <div className="flex items-center p-4 gap-x-4 cursor-pointer" onClick={() => router.push(`/profile/${profile?.id}`)}>
             <User2 className="w-8 h-w-8 text-center" />
-            <p className="text-lg hidden md:flex">Profile</p>
+            <p className="text-lg md:flex">Profile</p>
           </div>
 
           <div
@@ -39,7 +39,7 @@ const Sidebar = ({ profile }: SidebarProps) => {
             onClick={() => signOut()}
           >
             <LogOut className="w-8 h-w-8" />
-            <p className="text-lg hidden md:flex">Logout</p>
+            <p className="text-lg md:flex">Logout</p>
           </div>
 
           <div className="p-4">
@@ -50,7 +50,7 @@ const Sidebar = ({ profile }: SidebarProps) => {
             >
               <div className="flex items-center gap-x-5">
                 <Plus className="h-4 w-4 font-semibold" />
-                <p className="text-white hidden md:flex text-sm">Create Post</p>
+                <p className="text-white md:flex text-sm">Create Post</p>
               </div>
             </button>
           </div>
