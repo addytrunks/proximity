@@ -31,3 +31,17 @@ export const POST = async (req: Request) => {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };
+
+export const GET = async(req:Request) => {
+    try {
+        const posts = await db.post.findMany({
+            orderBy:{
+                createdAt: 'desc'
+            }
+        })
+        return NextResponse.json(posts, {status: 200})
+    } catch (error) {
+        console.log('POSTS_GET', error)
+        return new NextResponse('Internal Server Error', {status: 500})
+    }
+}

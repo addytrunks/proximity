@@ -42,16 +42,17 @@ const PostForm = ({ type, data }: PostFormProps) => {
   const onSubmit = async (values: z.infer<typeof createPostFormSchema>) => {
     try {
       if (type === "create") {
-        await axios.post("/api/create-post/", values);
+        await axios.post("/api/posts/", values);
         toast.success("Post created successfully!", {
           position: "bottom-right",
         });
         router.push("/");
       } else {
-        await axios.patch(`/api/edit-post/${data?.id}/`, values);
+        await axios.patch(`/api/posts/${data?.id}/`, values);
         toast.success("Post updated successfully!", {
           position: "bottom-right",
         });
+        router.refresh();
         router.push("/");
       }
     } catch (error) {

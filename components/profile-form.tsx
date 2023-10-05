@@ -71,12 +71,12 @@ const ProfileForm = ({ profile, type, imageUrl }: ProfileFormProps) => {
   const onSubmit = async (values: z.infer<typeof createUserFormSchema>) => {
     try {
       if (type === "create") {
-        await axios.post(`/api/create-user/`, values);
+        await axios.post(`/api/profile/`, values);
         toast.success("Your profile has been created successfully!", {
           position: "bottom-right",
         });
       } else {
-        await axios.patch(`/api/edit-user/${profile?.id}`, values);
+        await axios.patch(`/api/profile/${profile?.id}`, values);
         toast.success("Your profile has been updated successfully!", {
           position: "bottom-right",
         });

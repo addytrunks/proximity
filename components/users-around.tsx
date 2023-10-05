@@ -22,7 +22,7 @@ const UsersAround = async () => {
       </p>
 
       {filteredUsers.map((user) => (
-        <div className="flex items-center gap-x-4 p-6">
+        <div className="flex items-center gap-x-4 p-6" key={user.id}>
           <div className="relative w-4 h-4">
             <Image fill alt='img' className="rounded-full" src={user.imageUrl}/>
           </div>
