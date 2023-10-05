@@ -26,7 +26,7 @@ const Feed = ({ postsWithProfile,userProfile }: FeedProps) => {
   return (
     <div>
       {postsWithProfile.map((post) => (
-        <Card className="lg:w-[600px] md:w-[550px] border-gray-700 mt-5 shadow-lg">
+        <Card className="w-full border-gray-700 mt-5 shadow-lg">
           <CardHeader className="flex items-center space-x-5">
             
             <div className="relative h-8 w-8">
@@ -38,7 +38,7 @@ const Feed = ({ postsWithProfile,userProfile }: FeedProps) => {
               />
             </div>
             <span className="font-semibold">
-              {post.Profile.name.toLowerCase()}
+              {userProfile.id === post.Profile.id ? 'You' : post.Profile.name}
             </span>
             <span className="text-gray-500 text-xs">
               {formatDistance(new Date(), post.createdAt)} ago
@@ -46,7 +46,7 @@ const Feed = ({ postsWithProfile,userProfile }: FeedProps) => {
             <span className="text-gray-500 text-xs text-right">{calculateRadius(userProfile.c_lat,userProfile.c_long,post.c_lat,post.c_long)} KM away from you.</span>
           </CardHeader>
           <CardContent>
-            <div className="relative lg:w-[500px] md:w-[400px] h-[400px] md mx-auto">
+            <div className="relative lg:w-[450px] md:w-[400px] h-[400px] mx-auto">
               <Image
                 src={post.imageUrl}
                 fill

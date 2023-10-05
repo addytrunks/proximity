@@ -1,10 +1,6 @@
 import Sidebar from "@/components/sidebar";
+import UsersAround from "@/components/users-around";
 import { currentProfile } from "@/lib/current-profile";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Home",
-};
 
 export default async function MainLayout({
   children,
@@ -14,12 +10,17 @@ export default async function MainLayout({
   const profile = await currentProfile();
 
   return (
-    <div className="h-full flex">
-      <div className="lg:w-[430px] md:w-[230px] sm:w-[130px]">
-        <Sidebar profile={profile} />
-      </div>
-      <div className="flex-1 overflow-y-auto border-l border-neutral-800">
-        {children}
+    <div>
+      <div className="h-full grid grid-cols-12">
+        <div className="col-span-3 container flex flex-col ">
+          <div className="w-fit mx-auto">
+            <Sidebar profile={profile} />
+          </div>
+        </div>
+        <div className="lg:col-span-6 col-span-9 border-l border-gray-800">{children}</div>
+        <div className="col-span-3 border-l border-gray-800 responsive">
+          <UsersAround />
+        </div>
       </div>
     </div>
   );

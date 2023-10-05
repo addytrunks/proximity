@@ -13,3 +13,20 @@ body {
   font-family: "Dancing Script", cursive;
   font-family: "Roboto", sans-serif;
 }
+
+.responsive {
+  display: none;
+}
+
+.text-responsive{
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .responsive {
+    display: block;
+  }
+  .text-responsive{
+    display: block;
+  }
+}

@@ -76,12 +76,12 @@ const PostForm = ({ type, data }: PostFormProps) => {
   };
 
   return (
-    <div className="container p-6">
-      <div className="font-semibold text-4xl flex items-center space-x-2">
+    <div className="container p-6 flex flex-col justify-center items-center min-h-screen">
+      <div className="w-full font-semibold text-4xl flex items-center space-x-2">
         <span>{type === "create" ? "Create" : "Edit"} a</span>
         <span className="text-[#58A6FF]">Post</span>
       </div>
-      <Card className="lg:w-[600px] md:w-[550px] border-gray-700 mt-5">
+      <Card className="w-full border-gray-700 mt-5">
         <CardHeader>
           <CardTitle className="flex items-center gap-x-4">
             <span>Locate Me</span>
