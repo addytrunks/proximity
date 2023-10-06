@@ -1,6 +1,9 @@
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
+import { postWithProfile } from "@/types.t";
 import { NextResponse } from "next/server";
+
+const MAX_POSTS = 2;
 
 export const POST = async (req: Request) => {
   try {
@@ -32,16 +35,46 @@ export const POST = async (req: Request) => {
   }
 };
 
-export const GET = async(req:Request) => {
-    try {
-        const posts = await db.post.findMany({
-            orderBy:{
-                createdAt: 'desc'
-            }
-        })
-        return NextResponse.json(posts, {status: 200})
-    } catch (error) {
-        console.log('POSTS_GET', error)
-        return new NextResponse('Internal Server Error', {status: 500})
+export const GET = async (req: Request) => {
+  try {
+    const { searchParams } = new URL(req.url);
+    const cursor = searchParams.get("cursor");
+
+    let posts:postWithProfile[] = [];
+
+    if(cursor){
+      posts = await db.post.findMany({
+        take:MAX_POSTS,
+        skip:1,
+        cursor:{
+          id:cursor
+        },
+        include:{
+          Profile:true
+        },
+        orderBy:{
+          createdAt:'desc'
+        }
+      })
+    }else{
+      posts = await db.post.findMany({
+        take:MAX_POSTS,
+        include:{
+          Profile:true
+        },
+        orderBy:{
+          createdAt:'desc'
+        }
+      })
     }
-}
+    let nextCursor = null;
+
+    if(posts.length === MAX_POSTS){
+      nextCursor = posts[MAX_POSTS-1].id;
+    }
+    return NextResponse.json({posts,nextCursor}, { status: 200 });
+  } catch (error) {
+    console.log("POSTS_GET", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
+};

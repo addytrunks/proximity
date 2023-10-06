@@ -1,4 +1,5 @@
 import z from "zod";
+import { Post, Profile } from "@prisma/client";
 
 export const createUserFormSchema = z.object({
   username: z
@@ -39,3 +40,9 @@ export const createPostFormSchema = z.object({
   c_lat: z.string().nonempty(),
   c_long: z.string().nonempty(),
 });
+
+export type postWithProfile = (Post & {
+  Profile: Profile;
+});
+
+
