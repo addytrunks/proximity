@@ -11,6 +11,8 @@ import axios from "axios";
 import { useInView } from "react-intersection-observer";
 import { postWithProfile } from "@/types.t";
 import Loader from "./loader";
+import { Edit } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface FeedProps {
   userProfile: Profile;
@@ -23,22 +25,17 @@ const Feed = ({ userProfile }: FeedProps) => {
   }, []);
 
   const { ref, inView } = useInView();
+  const router = useRouter();
 
-  const {
-    data,
-    isLoading,
-    isError,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["posts"],
-    queryFn: async ({ pageParam = "" }) => {
-      const res = await axios.get(`/api/posts?cursor=${pageParam}`);
-      return res.data;
-    },
-    getNextPageParam: (lastPage) => lastPage?.nextCursor ?? false,
-  });
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ["posts"],
+      queryFn: async ({ pageParam = "" }) => {
+        const res = await axios.get(`/api/posts?cursor=${pageParam}`);
+        return res.data;
+      },
+      getNextPageParam: (lastPage) => lastPage?.nextCursor ?? false,
+    });
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -47,8 +44,9 @@ const Feed = ({ userProfile }: FeedProps) => {
   }, [inView]);
 
   if (!isMounted) return null;
-  if (isLoading) return <Loader/>;
-  if (isError) return <div>Error...</div>;
+  if (isLoading) return <Loader />;
+  
+  console.log(data)
 
   return (
     <div>
@@ -96,6 +94,11 @@ const Feed = ({ userProfile }: FeedProps) => {
                         )}{" "}
                         KM away from you.
                       </span>
+                      {userProfile.id === post.Profile?.id && (
+                        <span className="cursor-pointer" onClick={() => router.push(`/post/${post.id}`)}>
+                          <Edit className="w-4 h-4 text-gray-600 hover:text-gray-300" />
+                        </span>
+                      )}
                     </CardHeader>
                     <CardContent>
                       <div className="relative lg:w-[450px] md:w-[400px] h-[400px] mx-auto">
@@ -114,9 +117,7 @@ const Feed = ({ userProfile }: FeedProps) => {
             })}
           </React.Fragment>
         ))}
-      {isFetchingNextPage && (
-        <Loader/>
-      )}
+      {isFetchingNextPage && <Loader />}
       <span ref={ref} />
     </div>
   );

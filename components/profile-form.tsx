@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 import { LocateFixed } from "lucide-react";
 import { Profile } from "@prisma/client";
 import { UploadButton } from "@/lib/uploadthing";
+import { cn } from "@/lib/utils";
 
 interface ProfileFormProps {
   type: "edit" | "create";
@@ -90,8 +91,8 @@ const ProfileForm = ({ profile, type, imageUrl }: ProfileFormProps) => {
   if (!isMounted) return null;
 
   return (
-    <div className="container p-6 flex flex-col justify-center items-center min-h-screen">
-      <div className="w-full font-semibold text-4xl flex items-center space-x-2">
+    <div className="container p-6 mx-auto flex flex-col justify-center items-center min-h-screen">
+      <div className={cn('font-semibold text-4xl flex items-center space-x-2',type === 'create' ? 'w-fit' :'w-full')}>
         <p className="font-semibold text-4xl">
           {type === "create" ? (
             <p className="font-semibold text-4xl">
@@ -104,7 +105,7 @@ const ProfileForm = ({ profile, type, imageUrl }: ProfileFormProps) => {
           )}
         </p>
       </div>
-      <Card className="w-full border-gray-700 mt-5">
+      <Card className={cn('border-gray-700 mt-5',type === 'create' ? 'w-[600px]' :'w-full')}>
         <CardHeader>
           <CardTitle className="flex items-center gap-x-4">
             <span>Locate Me</span>
