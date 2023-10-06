@@ -22,6 +22,7 @@ interface PostFormProps {
 
 const PostForm = ({ type, data }: PostFormProps) => {
   const router = useRouter();
+  const [loading, setLoading] = React.useState(false);
 
   const {
     register,
@@ -75,6 +76,14 @@ const PostForm = ({ type, data }: PostFormProps) => {
     );
     console.log("Location");
   };
+
+  const deletePost = async () => {
+    setLoading(true);
+    await axios.delete(`/api/posts/${data?.id}`);
+    router.refresh()
+    toast.success("Post deleted successfully")
+    setLoading(false);
+}
 
   return (
     <div className="container p-6 flex flex-col justify-center items-center min-h-screen">
@@ -145,13 +154,25 @@ const PostForm = ({ type, data }: PostFormProps) => {
               </span>
             )}
 
-            <button
-              type="submit"
-              disabled={isLoading || isSubmitting}
-              className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF]"
-            >
-              {type === "create" ? "Create" : "Edit"} post
-            </button>
+            <div className="flex items-center space-x-3">
+              <button
+                type="submit"
+                disabled={isLoading || isSubmitting}
+                className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-[#58A6FF] w-full"
+              >
+                {type === "create" ? "Create" : "Edit"} post
+              </button>
+              {type === 'edit' && (
+                <button
+                type="submit"
+                onClick={deletePost}
+                disabled={loading}
+                className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 bg-rose-500 w-full"
+              >
+                Delete post
+              </button>
+              )}
+            </div>
           </form>
         </CardContent>
       </Card>

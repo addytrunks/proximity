@@ -11,7 +11,7 @@ import axios from "axios";
 import { useInView } from "react-intersection-observer";
 import { postWithProfile } from "@/types.t";
 import Loader from "./loader";
-import { Edit } from "lucide-react";
+import { Edit, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface FeedProps {
@@ -45,8 +45,6 @@ const Feed = ({ userProfile }: FeedProps) => {
 
   if (!isMounted) return null;
   if (isLoading) return <Loader />;
-  
-  console.log(data)
 
   return (
     <div>
@@ -95,7 +93,10 @@ const Feed = ({ userProfile }: FeedProps) => {
                         KM away from you.
                       </span>
                       {userProfile.id === post.Profile?.id && (
-                        <span className="cursor-pointer" onClick={() => router.push(`/post/${post.id}`)}>
+                        <span
+                          className="cursor-pointer"
+                          onClick={() => router.push(`/post/${post.id}`)}
+                        >
                           <Edit className="w-4 h-4 text-gray-600 hover:text-gray-300" />
                         </span>
                       )}

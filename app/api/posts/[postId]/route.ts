@@ -36,3 +36,20 @@ export const PATCH = async (
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };
+
+export const DELETE = async (
+  req: Request,
+  { params }: { params: { postId: string } }
+) => {
+  try {
+    const post = await db.post.delete({
+      where:{
+        id: params.postId
+      }
+    });
+    return NextResponse.json(post, { status: 200})
+  } catch (error) {
+    console.log("[POST_DELETE]", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
+};
