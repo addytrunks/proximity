@@ -21,6 +21,7 @@ import { LocateFixed } from "lucide-react";
 import { Profile } from "@prisma/client";
 import { UploadButton } from "@/lib/uploadthing";
 import { cn } from "@/lib/utils";
+import { UserButton } from "@clerk/nextjs";
 
 interface ProfileFormProps {
   type: "edit" | "create";
@@ -92,8 +93,13 @@ const ProfileForm = ({ profile, type, imageUrl }: ProfileFormProps) => {
 
   return (
     <div className="container p-6 mx-auto flex flex-col justify-center items-center min-h-screen">
-      <div className={cn('font-semibold text-4xl flex items-center space-x-2',type === 'create' ? 'w-fit' :'w-full')}>
-        <p className="font-semibold text-4xl">
+      <div
+        className={cn(
+          "font-semibold text-4xl flex items-center space-x-2",
+          type === "create" ? "w-fit" : "w-full"
+        )}
+      >
+        <p className="font-semibold text-4xl flex items-center gap-x-5">
           {type === "create" ? (
             <p className="font-semibold text-4xl">
               Welcome to <span className="text-[#58A6FF]">Proximity</span>
@@ -103,9 +109,15 @@ const ProfileForm = ({ profile, type, imageUrl }: ProfileFormProps) => {
               Edit <span className="text-[#58A6FF]">Profile</span>
             </p>
           )}
+          <UserButton />
         </p>
       </div>
-      <Card className={cn('border-gray-700 mt-5',type === 'create' ? 'w-[600px]' :'w-full')}>
+      <Card
+        className={cn(
+          "border-gray-700 mt-5",
+          type === "create" ? "w-[600px]" : "w-full"
+        )}
+      >
         <CardHeader>
           <CardTitle className="flex items-center gap-x-4">
             <span>Locate Me</span>
