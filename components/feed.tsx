@@ -58,7 +58,7 @@ const Feed = ({ userProfile }: FeedProps) => {
   });
 
   return (
-    <div>
+    <div className="min-h-screen">
       {data &&
         data.pages.map((page) => (
           <React.Fragment key={page.nextId ?? "lastPage"}>
@@ -85,7 +85,7 @@ const Feed = ({ userProfile }: FeedProps) => {
                           fill
                         />
                       </div>
-                      <span className="font-semibold">
+                      <span className="font-semibold hover:text-[#58A6FF] cursor-pointer" onClick={() => router.push(`/user-profile/${post.Profile.id}`)}>
                         {userProfile.id === post.Profile?.id
                           ? "You"
                           : post.Profile?.name}

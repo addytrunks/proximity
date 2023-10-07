@@ -32,7 +32,7 @@ const Sidebar = ({ profile }: SidebarProps) => {
 
       <div
         className="flex items-center p-4 gap-x-4 cursor-pointer"
-        onClick={() => router.push(`/profile/${profile?.id}`)}
+        onClick={() => router.push(`/user-profile/${profile?.id}`)}
       >
         <User2 className="w-8 h-w-8 text-center" />
         <p className="text-lg text-responsive">Profile</p>
