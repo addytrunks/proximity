@@ -39,7 +39,7 @@ const UserProfile = ({ posts, profile, currUser }: UserProfileProps) => {
             {profile?.id === currUser?.id && (
               <p
                 className="bg-[#58A6FF] cursor-pointer rounded-lg px-3 py-2"
-                onClick={() => router.push(`/profile/${profile?.id}`)}
+                onClick={() => router.push(`/user-profile/${profile?.id}/edit`)}
               >
                 Edit profile
               </p>
