@@ -11,7 +11,7 @@ import axios from "axios";
 import { useInView } from "react-intersection-observer";
 import { postWithProfile } from "@/types.t";
 import Loader from "./loader";
-import { Edit, Trash } from "lucide-react";
+import { Edit } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface FeedProps {
@@ -27,7 +27,7 @@ const Feed = ({ userProfile }: FeedProps) => {
   const { ref, inView } = useInView();
   const router = useRouter();
 
-  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage,hasPreviousPage } =
     useInfiniteQuery({
       queryKey: ["posts"],
       queryFn: async ({ pageParam = "" }) => {
@@ -45,6 +45,17 @@ const Feed = ({ userProfile }: FeedProps) => {
 
   if (!isMounted) return null;
   if (isLoading) return <Loader />;
+
+  const filteredPosts: any = data?.pages.map((page) => {
+    return page.posts.filter((post: postWithProfile) =>
+      withinRadius(
+        post.c_lat,
+        post.c_long,
+        userProfile.c_lat,
+        userProfile.c_long
+      )
+    );
+  });
 
   return (
     <div>
@@ -119,6 +130,13 @@ const Feed = ({ userProfile }: FeedProps) => {
           </React.Fragment>
         ))}
       {isFetchingNextPage && <Loader />}
+      {filteredPosts?.some((post: any) => post.length === 0) && !hasPreviousPage  && (
+        <div className="flex items-center justify-center h-[100vh]">
+          <p className="text-xl font-semibold text-gray-500">
+            No more posts around you. 😭
+          </p>
+        </div>
+      )}
       <span ref={ref} />
     </div>
   );

@@ -14,6 +14,8 @@ const UsersAround = async () => {
     withinRadius(currUser?.c_lat!, currUser?.c_long!, user.c_lat, user.c_long) && user.id !== currUser?.id
   );
 
+
+
   return (
     <div className="p-4">
       <p className="text-lg font-semibold">
@@ -21,7 +23,11 @@ const UsersAround = async () => {
         around you
       </p>
 
-      {filteredUsers.map((user) => (
+      {filteredUsers.length === 0 && (
+        <p className="p-3 font-semibold h-full">You are alone 😭.</p>
+      )}
+
+      {filteredUsers.length>0 && filteredUsers.map((user) => (
         <div className="flex items-center gap-x-4 p-3" key={user.id}>
           <div className="relative w-4 h-4">
             <Image fill alt='img' className="rounded-full" src={user.imageUrl}/>
