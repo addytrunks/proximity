@@ -42,7 +42,7 @@ export const withinRadius = (
     parseFloat(lat),
     parseFloat(long)
   );
-  if (radius < 5) {
+  if (radius < 50) {
     return true;
   } else {
     return false;
