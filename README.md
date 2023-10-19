@@ -1,6 +1,6 @@
 # Proximity
 
-A UI-rich social media created using Next JS 15, Tailwind CSS, Mongo DB (Prisma ORM)
+An UI-rich social media created using Next JS 15, Tailwind CSS, Mongo DB (Prisma ORM)
 
 The features of this project are:
   - Create,edit and delete posts
